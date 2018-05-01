@@ -1,0 +1,48 @@
+.main.row, .veg.row {
+  background-color: #fafafa;
+  margin: 10px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0px 0px 4px #ccc
+}
+.menu {
+  margin: 40px;
+}
+.main.header, .veg.header {
+  width: 100%;
+}
+.main.item, .veg.item {
+  display: block;
+  float: left;
+  width: auto;
+}
+.main.allergens, .veg.allergens {
+  margin-left: 10px;
+  color: red;
+}
+.vegetarian {
+  color: green;
+}
+.menu.meal {
+  position: absolute;
+  font-weight: bold;
+  left: 0;
+  top: 0;
+}
+.menu.day {
+  position: absolute;
+  font-weight: bold;
+  top: 0;
+  right: 0;
+}
+.menu.header {
+  font-size: 3em;
+}
+.tapSensor {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 0px;
+  left: 0px;
+}

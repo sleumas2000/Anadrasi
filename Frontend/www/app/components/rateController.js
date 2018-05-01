@@ -26,7 +26,7 @@
       Idle.watch()
     })
     .config(function(IdleProvider, KeepaliveProvider) {
-      IdleProvider.idle(60);
+      IdleProvider.idle(20);
       IdleProvider.timeout(0);
       KeepaliveProvider.interval(10);
     })

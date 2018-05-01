@@ -15,7 +15,7 @@ app.use(express.static(__dirname+'/www/'));
 
 app.use(function(req,res){
   console.log(404,req.originalUrl)
-  res.sendFile(__dirname+'/www/rate.html');
+  res.sendFile(__dirname+'/www/index.html');
 })
 
 app.listen(PORT);

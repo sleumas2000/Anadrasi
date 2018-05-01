@@ -1,0 +1,16 @@
+<div class="veg row" ng-show="meal[item]">
+  <h2 class="veg header">
+    {{meal[item].title}}
+  </h2>
+  <h3 class="veg item">
+    {{meal[item].name}}
+  </h3>
+  <h3 class="veg allergens">
+    <span ng-repeat="allergen in meal[item].allergens">
+      ({{allergen}})
+    </span>
+    <span class="vegetarian" ng-show="meal[item].vegetarian">
+      (V)
+    </span>
+  </h3>
+</div>

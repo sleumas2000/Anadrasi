@@ -115,23 +115,27 @@ api.post('/feedback', function(req, res){ // Submit feedback to the database
 });
 
 api.get('/menu/today', function(req, res){ // Get today's menu
-  pool.query('SELECT * FROM Config WHERE Setting = "weekOnWeekBaseDate" OR Setting = "weekBaseDate"', function(err, results, fields){
-    if (results.length != 2) {return res.json({success: false, message: "Something isn't configured right. I don't know what week it is"})}
-    for (var i in results) { // set those settings from the config read
-      if (results[i].Setting == "weekOnWeekBaseDate") {
-        var weekOnWeekBaseDate = results[i].Value
-      } else if (results[i].Setting == "weekBaseDate") {
-        var weekBaseDate = new Date(results[i].Value)
-      } else {console.log("SQL is broken");return res.json({success: false, message: "Something isn't configured right. I don't know what week it is"})} // This shouldn't happen. Ever
+  fs.readFile('config.json', 'utf8', function readConfigCallback(err, conf){
+    if (err){
+      console.log(err);
+    } else {
+      var config = JSON.parse(conf);
+      var weekBaseDate = new Date(config.weekBaseDate)
+      var now = new Date()
+      var difference = Math.floor((now.getTime()-weekBaseDate.getTime())/(1000*60*60*24*7)) // Finds the difference in time between the time right now and the time in the database in milliseconds. Divides this by 1 week then floors it to find the number of weeks.
+      var week = (config.weekOnWeekBaseDate+difference-1)%3+1 // Taking it mod 3 BUT so that it gives 1, 2 or 3 not 0, 1 or 2
+      fs.readFile('menu.json', 'utf8', function readMenuCallback(err, data){
+        if (err){
+          console.log(err);
+        } else {
+          var menu = JSON.parse(data);
+          var daysMenu = menu[week.toString()][now.getDay().toString()]
+          daysMenu.week = week.toString()
+          daysMenu.day = now.getDay().toString()
+          res.json(daysMenu)
+        }
+      });
     }
-    var now = new Date()
-    var difference = Math.floor((now.getTime()-weekBaseDate.getTime())/(1000*60*60*24*7)) // Finds the difference in time between the time right now and the time in the database in milliseconds. Divides this by 1 week then floors it to find the number of weeks.
-    var week = (weekOnWeekBaseDate+difference-1)%3+1 // Taking it mod 3 BUT so that it gives 1, 2 or 3 not 0, 1 or 2
-    pool.query('SELECT * FROM Menu WHERE Week = ? AND Day = ?', [week, now.getDay()], function (err, results, fields){
-      if (err) console.log(err);
-      results.push({success: false, message:"No data"})
-      res.json(results[0]);
-    });
   });
 });
 
@@ -139,17 +143,43 @@ api.post('/setWeek/:week', function(req, res){ // Set the week
   var now = new Date()
   now.setUTCHours(0,0,0,0)
   now.setDate(now.getDate() - ((now.getDay()-1)%7))
-  console.log(now.toISOString())
-  pool.query('REPLACE INTO Config(Setting, Value) VALUES ("weekBaseDate", ?), ("weekOnWeekBaseDate", ?)', [now.toISOString(),req.params.week], function(err, results, fields){
-    if (err) {
+  fs.readFile('config.json', 'utf8', function readConfigCallback(err, data){
+    if (err){
       console.log(err);
-      res.status(404).json(req.body)
     } else {
-      res.status(200).json({success: true, message: 'Week set to '+req.params.week});
-    };
+      var config = JSON.parse(data || "{}");
+      config.weekBaseDate = now.toISOString()
+      config.weekOnWeekBaseDate = req.params.week
+      fs.writeFile('config.json', JSON.stringify(config), 'utf8', function writeConfigCallback(err, data){
+        if (err) {
+          console.log(err);
+          res.status(404).json(req.body)
+        } else {
+          res.status(200).json({success: true, message: 'Week set to '+req.params.week});
+        };
+      });
+    }
   });
 });
 
+api.get('/currentService', function(req, res){ // Get all feedback ever for all time
+  var now = new Date()
+  fs.readFile('config.json', 'utf8', function readConfigCallback(err, data){
+    if (err){
+      console.log(err);
+    } else {
+      var config = JSON.parse(data || "{}");
+      var h = now.getHours()
+      if (h >= (config.lunchStartTime || 10) && h < (config.lunchEndTime || 15)) {
+        return res.json({meal: 'lunch'})
+      }
+      if (h >= (config.supperStartTime || 15) && h < (config.supperEndTime || 20)) {
+        return res.json({meal: 'supper'})
+      }
+      else return res.json({meal: 'outOfHours'})
+    }
+  })
+});
 
 app.use(API_STEM_V1,api)
 

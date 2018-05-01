@@ -37,6 +37,10 @@
          getToday: {
            url: apiRoot+"/menu/today",
            method: 'GET',
+         },
+         getCurrentService: {
+           url: apiRoot+"/currentService",
+           method: 'GET'
          }
        });
     });

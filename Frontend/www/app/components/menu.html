@@ -1,5 +1,20 @@
-<div class="container">
-  <p>Week {{menu.Week}}</p>
-  <p>{{day}}</p>
-  <p>{{menu.MenuJSON}}</p>
+<div class="menu meal">{{menu[meal].name}}</div>
+<div class="menu day">Week {{week}} {{day}}</div>
+<h1 class="menu header">Menu</h1>
+<div class="menu" ng-show="meal == 'lunch'">
+  <main-meal meal="lunch" item="main1"></main-meal>
+  <main-meal meal="lunch" item="main2"></main-meal>
+  <main-meal meal="lunch" item="main3"></main-meal>
+  <veg meal="lunch" item="veg1"></veg>
+  <veg meal="lunch" item="veg2"></veg>
+  <veg meal="lunch" item="veg3"></veg>
 </div>
+<div class="menu" ng-show="meal == 'supper'">
+  <main-meal meal="supper" item="main1"></main-meal>
+  <main-meal meal="supper" item="main2"></main-meal>
+  <main-meal meal="supper" item="main3"></main-meal>
+  <veg meal="supper" item="veg1"></veg>
+  <veg meal="supper" item="veg2"></veg>
+  <veg meal="supper" item="veg3"></veg>
+</div>
+<div class="tapSensor" ng-click="goToRate()"></div>
