@@ -1,0 +1,7 @@
+<ul class="nav nav-pills nav-fill">
+  <li ng-click="getRatings('=0')" class="nav-item"><a ng-class="{'nav-link':true, 'active': (timeframe == '=0')}" href="#">Today</a></li>
+  <li ng-click="getRatings('=1')" class="nav-item"><a ng-class="{'nav-link':true, 'active': (timeframe == '=1')}" href="#">Yesterday</a></li>
+  <li ng-click="getRatings('<7')" class="nav-item"><a ng-class="{'nav-link':true, 'active': (timeframe == '<7')}" href="#">1 Week</a></li>
+  <li ng-click="getRatings('<30')" class="nav-item"><a ng-class="{'nav-link':true, 'active': (timeframe == '<30')}" href="#">30 Days</a></li>
+</ul>
+{{ratings}}

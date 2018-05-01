@@ -1,8 +1,8 @@
 (function(){
   'use strict';
   angular.module('anadrasi')
-    .controller('menuController', function($scope, $state, $q, Menu){
-      $q.all([Menu.getToday().$promise,Menu.getCurrentService().$promise]).then(function([menu,meal]){
+    .controller('menuController', function($scope, $state, $q, Menu, Config){
+      $q.all([Menu.getToday().$promise,Config.currentService().$promise]).then(function([menu,meal]){
         $scope.menu = menu
         console.log($scope.menu)
         $scope.day = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'][$scope.menu.day]

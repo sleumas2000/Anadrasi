@@ -33,13 +33,21 @@
        return $resource(apiRoot+"/feedback", {}, {});
     })
     .factory('Menu', function($resource){
-       return $resource(apiRoot+"/menu", {rating: '@rating', daysAgo: '@daysAgo'}, {
+       return $resource(apiRoot+"/menu", {}, {
          getToday: {
            url: apiRoot+"/menu/today",
            method: 'GET',
          },
-         getCurrentService: {
+       });
+    })
+    .factory('Config', function($resource){
+       return $resource(apiRoot+"/menu", {}, {
+         currentService: {
            url: apiRoot+"/currentService",
+           method: 'GET'
+         },
+         showCommentBox: {
+           url: apiRoot+"/config/showCommentBox",
            method: 'GET'
          }
        });

@@ -48,7 +48,7 @@ api.get('/ratings/all', function(req, res){ // Get every rating ever for all tim
     res.json(results);
   });
 });
-api.get('/ratings/daysago/:days', function(req, res){ // Get ratings from ":days" days ago. Also supports >, < or = eg ">5" to get all ratings at least 5 days old
+api.get('/ratings/daysAgo/:days', function(req, res){ // Get ratings from ":days" days ago. Also supports >, < or = eg ">5" to get all ratings at least 5 days old
   var operator = req.params.days[0]
   var daysAgo = req.params.days.slice(1)
   if (operator != "<" && operator != ">" && operator != "=") {
@@ -58,7 +58,7 @@ api.get('/ratings/daysago/:days', function(req, res){ // Get ratings from ":days
   var gtstring = "TimeSubmitted < DATE_ADD(DATE_SUB(CURDATE(), INTERVAL ? DAY), INTERVAL 1 DAY)"
   var ltstring = "TimeSubmitted > DATE_SUB(CURDATE(), INTERVAL ? DAY)"
   var eqstring = gtstring+" AND "+ltstring
-  pool.query('SELECT * FROM Ratings WHERE '+(operator == "=" ? eqstring : operator == ">" ? gtstring : operator == "<" ? ltstring : "TRUE"), (operator == "=" ? [daysAgo, daysAgo] : daysAgo), function (err, results, fields){
+  pool.query('SELECT * FROM Ratings WHERE '+(operator == "=" ? eqstring : operator == ">" ? gtstring : operator == "<" ? ltstring : "TRUE")+" ORDER BY TimeSubmitted", (operator == "=" ? [daysAgo, daysAgo] : daysAgo), function (err, results, fields){
     if (err) console.log(err);
     res.json(results);
   });
@@ -87,7 +87,7 @@ api.get('/feedback/all', function(req, res){ // Get all feedback ever for all ti
     res.json(results);
   });
 });
-api.get('/feedback/daysago/:days', function(req, res){ // Get feedback from ":days" days ago. Also supports >, < or = eg ">5" to get all feedback at least 5 days old
+api.get('/feedback/daysAgo/:days', function(req, res){ // Get feedback from ":days" days ago. Also supports >, < or = eg ">5" to get all feedback at least 5 days old
   var operator = req.params.days[0]
   var daysAgo = req.params.days.slice(1)
   if (operator != "<" && operator != ">" && operator != "=") {
@@ -164,22 +164,41 @@ api.post('/setWeek/:week', function(req, res){ // Set the week
 
 api.get('/currentService', function(req, res){ // Get all feedback ever for all time
   var now = new Date()
+  getService(now).then(function(value){return res.json({meal:value})})
+});
+
+api.get('/config/showCommentBox', function(req, res){ // Get all feedback ever for all time
+  var now = new Date()
   fs.readFile('config.json', 'utf8', function readConfigCallback(err, data){
     if (err){
       console.log(err);
     } else {
       var config = JSON.parse(data || "{}");
-      var h = now.getHours()
-      if (h >= (config.lunchStartTime || 10) && h < (config.lunchEndTime || 15)) {
-        return res.json({meal: 'lunch'})
-      }
-      if (h >= (config.supperStartTime || 15) && h < (config.supperEndTime || 20)) {
-        return res.json({meal: 'supper'})
-      }
-      else return res.json({meal: 'outOfHours'})
+      return res.json(config.showCommentBox || {value:false})
     }
   })
 });
+
+function getService(time){
+  var p = new Promise(function(resolve){
+    fs.readFile('config.json', 'utf8', function readConfigCallback(err, data){
+      if (err){
+        console.log(err);
+      } else {
+        var config = JSON.parse(data || "{}");
+        var h = time.getHours()
+        if (h >= (config.lunchStartTime || 10) && h < (config.lunchEndTime || 15)) {
+          resolve('lunch')
+        }
+        if (h >= (config.supperStartTime || 15) && h < (config.supperEndTime || 20)) {
+          resolve('supper')
+        }
+        else {console.log('OOO');resolve('outOfHours')}
+      }
+    })
+  })
+  return p
+}
 
 app.use(API_STEM_V1,api)
 

@@ -1,7 +1,8 @@
 (function(){
   'use strict';
   angular.module('anadrasi')
-    .controller('rateController', function($scope, $timeout, Idle, Keepalive, $state, Rating, Feedback){
+    .controller('rateController', function($scope, $timeout, Idle, Keepalive, $state, Rating, Feedback, Config){
+      Config.showCommentBox().$promise.then(function(value){$scope.showCommentBox = value.value})
       function showThankYou() {
         $scope.showThankYou = true;
         $timeout(function() {$scope.showThankYou = false;}, 1500)

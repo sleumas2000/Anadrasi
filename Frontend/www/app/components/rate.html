@@ -20,9 +20,9 @@
   </div>
 </div>
 <div class="footer row">
-  <h1>If you want to give any more detailed feedback, please talk to us or type in the box below.</h1>
-  <input class="form-control" type="text" ng-model="userFeedback" placeholder="Test comment input box"></input>
-  <button type="button" ng-click="feedback()" class="btn btn-info btn-block">Submit comment</button>
+  <h1>If you want to give any more detailed feedback, please come and talk to us<span ng-show="showCommentBox"> or type in the box below</span>.</h1>
+  <input ng-show="showCommentBox" class="form-control" type="text" ng-model="userFeedback" placeholder="Test comment input box"></input>
+  <button ng-show="showCommentBox" type="button" ng-click="feedback()" class="btn btn-primary btn-block">Submit comment</button>
 </div>
 
 <!-- Popup -->
