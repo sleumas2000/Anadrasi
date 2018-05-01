@@ -1,0 +1,33 @@
+
+<div class="header row">
+  <h1>How did you find us today?</h1>
+</div>
+<div class="ratings row">
+  <div class="col-2 rating rating-1">
+    <img class="rating-image" src="/images/rating-1.png" ng-click="rate(1)">
+  </div>
+  <div class="col-2 rating rating-2">
+    <img class="rating-image" src="/images/rating-2.png" ng-click="rate(2)">
+  </div>
+  <div class="col-2 rating rating-3">
+    <img class="rating-image" src="/images/rating-3.png" ng-click="rate(3)">
+  </div>
+  <div class="col-2 rating rating-4">
+    <img class="rating-image" src="/images/rating-4.png" ng-click="rate(4)">
+  </div>
+  <div class="col-2 rating rating-5">
+    <img class="rating-image" src="/images/rating-5.png" ng-click="rate(5)">
+  </div>
+</div>
+<div class="footer row">
+  <h1>If you want to give any more detailed feedback, please talk to us or type in the box below.</h1>
+  <input class="form-control" type="text" ng-model="userFeedback" placeholder="Test comment input box"></input>
+  <button type="button" ng-click="feedback()" class="btn btn-info btn-block">Submit comment</button>
+</div>
+
+<!-- Popup -->
+<div ng-show="showThankYou" class="thank-you-background popup-fade">
+  <div class="thank-you">
+    <h2>Thank you for your feedback</h2>
+  </div>
+</div>

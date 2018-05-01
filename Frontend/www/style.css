@@ -1,0 +1,67 @@
+.header.row {
+  padding: 30px;
+}
+h1 {
+  text-align: center;
+  margin: auto;
+}
+.ratings.row {
+  background-color: #fafafa;
+  margin: 50px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0px 0px 4px #ccc
+}
+.footer.row {
+  padding-left: 150px;
+  padding-right: 150px;
+}
+.footer.row input {
+  margin-top: 40px;
+}
+.footer.row button {
+  margin-top: 10px;
+}
+.col-2.rating {
+  width: 20%;
+  flex: 0 0 20%;
+  max-width: 20%;
+}
+img.rating-image {
+  display: block;
+  margin: auto;
+  width: 100%;
+}
+.thank-you {
+  position: absolute;
+  border-radius: 50px;
+  border: 3px solid #ccc;
+  box-shadow: 5px 5px 25px #444;
+  height: 60%;
+  width: 80%;
+  top: 20%;
+  left: 10%;
+  background-color: #fafafa;
+  padding: 100px;
+}
+.thank-you-background {
+  width: 100%;
+  height: 100%;
+  top: 0%;
+  left: 0%;
+  position: fixed;
+  background-color: rgba(0,0,0,0.5);
+}
+.thank-you h2 {
+  text-align: center;
+}
+
+/* fade transition */
+.popup-fade {
+    transition: all linear 300ms;
+    opacity: 1;
+}
+.popup-fade.ng-hide {
+    opacity: 0;
+}

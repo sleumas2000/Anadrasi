@@ -1,0 +1,49 @@
+{
+  "name": "Anadrasi",
+  "version": "0.0.1",
+  "description": "An online feedback system for Dining Hall by Samuel Sutherland",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sleumas2000/anadrasi.git"
+  },
+  "dependencies": {
+    "body-parser": "~1.0.1",
+    "express": "~4.0.0",
+    "jsonwebtoken": "^8.2.1",
+    "morgan": "^1.8.2",
+    "mysql": "~2.14.1"
+  },
+  "keywords": [
+    "agora",
+    "voting",
+    "system",
+    "democracy",
+    "fptp",
+    "av",
+    "stv",
+    "pr",
+    "proportional",
+    "representation",
+    "first",
+    "past",
+    "the",
+    "post",
+    "alternative",
+    "vote",
+    "single",
+    "transferrable",
+    "vote",
+    "vote",
+    "voting"
+  ],
+  "author": "Samuel Sutherland",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/sleumas2000/anadrasi/issues"
+  },
+  "homepage": "https://github.com/sleumas2000/anadrasi#readme"
+}
