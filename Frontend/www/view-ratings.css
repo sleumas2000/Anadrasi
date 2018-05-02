@@ -1,0 +1,71 @@
+.view-ratings.day.box {
+  background-color: #fafafa;
+  margin: 50px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0px 0px 4px #ccc;
+  overflow: auto;
+}
+.view-ratings.day.header {
+  float: left;
+  width: auto;
+}
+.view-ratings.day.details {
+  float: right;
+}
+.view-ratings.day.row {
+  width: 100%;
+  padding: 5px;
+}
+.view-ratings.meal.box {
+  width:300px;
+  float: left;
+  margin: 10px;
+}
+.rating.graph.area {
+  width: 300px;
+  background-color: #ccc;
+  border-radius: 10px;
+  padding: 20px;
+  padding-right: 30px;
+  margin: 0px;
+}
+.rating.graph.bar {
+  background-color: blue;
+  height: 25px;
+  margin: 1px;
+  overflow: hidden;
+}
+.rating.graph.bar.score-1 {
+  background-color: #fc1222;
+}
+.rating.graph.bar.score-2 {
+  background-color: #f96604;
+}
+.rating.graph.bar.score-3 {
+  background-color: #f0d30d;
+}
+.rating.graph.bar.score-4 {
+  background-color: #6fcf22;
+}
+.rating.graph.bar.score-5 {
+  background-color: #339900;
+}
+.rating.graph.label {
+  top: 0px;
+  height: 100%;
+}
+.rating.graph.label.left {
+  float: left;
+  width: auto;
+  padding-left: 2px;
+  padding-right: 2px;
+  background-color: rgba(255,255,255,0.6);
+}
+.rating.graph.label.right {
+  float: right;
+  width: auto;
+  padding-left: 2px;
+  padding-right: 2px;
+}

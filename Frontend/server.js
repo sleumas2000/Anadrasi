@@ -19,4 +19,4 @@ app.use(function(req,res){
 })
 
 app.listen(PORT);
-console.log('Serving them juicy webpages on localhost:'+PORT);
+console.log('Frontend Web Server started on localhost:'+PORT);

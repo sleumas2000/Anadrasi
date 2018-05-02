@@ -26,6 +26,14 @@
             url: apiRoot+"/ratings/daysAgo/:daysAgo",
             method: 'GET',
             isArray: true,
+         },
+         todaySummary: {
+            url: apiRoot+"/ratings/today/summary",
+            method: 'GET',
+         },
+         daysAgoSummary: {
+            url: apiRoot+"/ratings/daysAgo/:daysAgo/summary",
+            method: 'GET',
          }
        });
     })
@@ -37,7 +45,7 @@
          getToday: {
            url: apiRoot+"/menu/today",
            method: 'GET',
-         },
+         }
        });
     })
     .factory('Config', function($resource){

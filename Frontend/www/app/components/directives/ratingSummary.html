@@ -1,0 +1,6 @@
+<h3>{{meal}}</h3>
+<div class="rating graph area">
+  <div ng-repeat="(score,number) in summary" ng-class="getGraphClasses(score)" ng-style="{width: scale(number,summary).toString()+'%'}">
+    <div class="rating graph label left">{{score}}</div><div class="rating graph label right">{{number}}</div>
+  </div>
+</div>

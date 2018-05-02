@@ -42,10 +42,68 @@ api.get('/ratings/today', function(req, res){ // Get today's ratings
     res.json(results);
   });
 });
+api.get('/ratings/today/summary', function(req, res){ // Get today's ratings
+  pool.query('SELECT * FROM Ratings WHERE TimeSubmitted > CURDATE()', function (err, results, fields){
+    if (err) console.log(err);
+    var summary = {}
+    var promises = []
+    for (var l in results) {
+      var date = new Date(results[l].TimeSubmitted)
+      promises.push(new Promise(function(resolve){
+        getService(date).then(function(service){
+          date.setUTCHours(0,0,0,0)
+          var d = date.toISOString()
+          summary[d] = summary[d] || {}
+          summary[d][service] = summary[d][service] || {1:0,2:0,3:0,4:0,5:0}
+          summary[d][service][results[l].Rating] ++
+          resolve()
+        })
+      }))
+    }
+    Promise.all(promises).then(function(){
+      console.log("All promises resolved");
+      res.json(summary);
+    })
+  });
+});
 api.get('/ratings/all', function(req, res){ // Get every rating ever for all time
   pool.query('SELECT * FROM Ratings', function (err, results, fields){
     if (err) console.log(err);
     res.json(results);
+  });
+});
+api.get('/ratings/daysAgo/:days/summary', function(req, res){ // Get ratings from ":days" days ago. Also supports >, < or = eg ">5" to get all ratings at least 5 days old
+  var operator = req.params.days[0]
+  var daysAgo = req.params.days.slice(1)
+  if (operator != "<" && operator != ">" && operator != "=") {
+    operator = "="
+    daysAgo = req.params.days
+  }
+  var gtstring = "TimeSubmitted < DATE_ADD(DATE_SUB(CURDATE(), INTERVAL ? DAY), INTERVAL 1 DAY)"
+  var ltstring = "TimeSubmitted > DATE_SUB(CURDATE(), INTERVAL ? DAY)"
+  var eqstring = gtstring+" AND "+ltstring
+  pool.query('SELECT * FROM Ratings WHERE '+(operator == "=" ? eqstring : operator == ">" ? gtstring : operator == "<" ? ltstring : "TRUE")+" ORDER BY TimeSubmitted", (operator == "=" ? [daysAgo, daysAgo] : daysAgo), function (err, results, fields){
+    if (err) console.log(err);
+    var summary = {}
+    var promises = []
+    for (var l in results) {
+      promises.push(new Promise(function(resolve){
+        var date = new Date(results[l].TimeSubmitted)
+        var rating = results[l].Rating
+        getService(date).then(function(service){
+          date.setUTCHours(0,0,0,0)
+          var d = date.toISOString()
+          summary[d] = summary[d] || {}
+          summary[d][service] = summary[d][service] || {1:0,2:0,3:0,4:0,5:0}
+          summary[d][service][rating] ++
+          resolve()
+        })
+      }))
+    }
+    Promise.all(promises).then(function(){
+      console.log("All promises resolved");
+      res.json(summary);
+    })
   });
 });
 api.get('/ratings/daysAgo/:days', function(req, res){ // Get ratings from ":days" days ago. Also supports >, < or = eg ">5" to get all ratings at least 5 days old
@@ -138,6 +196,20 @@ api.get('/menu/today', function(req, res){ // Get today's menu
     }
   });
 });
+api.get('/menu/whatWeek/:date', function(req, res){ // Get today's menu
+  fs.readFile('config.json', 'utf8', function readConfigCallback(err, conf){
+    if (err){
+      console.log(err);
+    } else {
+      var config = JSON.parse(conf);
+      var weekBaseDate = new Date(config.weekBaseDate)
+      var now = new Date(req.params.date)
+      var difference = Math.floor((now.getTime()-weekBaseDate.getTime())/(1000*60*60*24*7)) // Finds the difference in time between the time right now and the time in the database in milliseconds. Divides this by 1 week then floors it to find the number of weeks.
+      var week = (config.weekOnWeekBaseDate+difference-1)%3+1 // Taking it mod 3 BUT so that it gives 1, 2 or 3 not 0, 1 or 2
+      res.json({week:week})
+    }
+  });
+});
 
 api.post('/setWeek/:week', function(req, res){ // Set the week
   var now = new Date()
@@ -186,14 +258,14 @@ function getService(time){
         console.log(err);
       } else {
         var config = JSON.parse(data || "{}");
-        var h = time.getHours()
+        var h = time.getUTCHours()
         if (h >= (config.lunchStartTime || 10) && h < (config.lunchEndTime || 15)) {
           resolve('lunch')
         }
         if (h >= (config.supperStartTime || 15) && h < (config.supperEndTime || 20)) {
           resolve('supper')
         }
-        else {console.log('OOO');resolve('outOfHours')}
+        else resolve('outOfHours')
       }
     })
   })
@@ -203,4 +275,4 @@ function getService(time){
 app.use(API_STEM_V1,api)
 
 app.listen(PORT);
-console.log("Webserver started on localhost:"+PORT)
+console.log("API server started on localhost:"+PORT)
