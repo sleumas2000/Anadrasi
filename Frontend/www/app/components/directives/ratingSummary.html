@@ -19,7 +19,21 @@
     <li ng-show="menu[meal].veg4">{{menu[meal].veg4.name}}</li>
     <li ng-show="menu[meal].veg5">{{menu[meal].veg5.name}}</li>
   </ul>
-  <div class="rating menu-box nothing"  ng-hide="menu[meal].main1 || menu[meal].main2 || menu[meal].main3 || menu[meal].main4 || menu[meal].main5 || menu[meal].veg1 || menu[meal].veg2 || menu[meal].veg3 || menu[meal].veg4 || menu[meal].veg5">
+  <ul ng-show="menu[meal].item1 || menu[meal].item2 || menu[meal].item3 || menu[meal].item4 || menu[meal].item5">
+    <li ng-show="menu[meal].item1">{{menu[meal].item1.name}}</li>
+    <li ng-show="menu[meal].item2">{{menu[meal].item2.name}}</li>
+    <li ng-show="menu[meal].item3">{{menu[meal].item3.name}}</li>
+    <li ng-show="menu[meal].item4">{{menu[meal].item4.name}}</li>
+    <li ng-show="menu[meal].item5">{{menu[meal].item5.name}}</li>
+  </ul>
+  <ul ng-show="menu[meal].dessert1 || menu[meal].dessert2 || menu[meal].dessert3 || menu[meal].dessert4 || menu[meal].dessert5">
+    <li ng-show="menu[meal].dessert1">{{menu[meal].dessert1.name}}</li>
+    <li ng-show="menu[meal].dessert2">{{menu[meal].dessert2.name}}</li>
+    <li ng-show="menu[meal].dessert3">{{menu[meal].dessert3.name}}</li>
+    <li ng-show="menu[meal].dessert4">{{menu[meal].dessert4.name}}</li>
+    <li ng-show="menu[meal].dessert5">{{menu[meal].dessert5.name}}</li>
+  </ul>
+  <div class="rating menu-box nothing" ng-hide="menu[meal].main1 || menu[meal].main2 || menu[meal].main3 || menu[meal].main4 || menu[meal].main5 || menu[meal].veg1 || menu[meal].veg2 || menu[meal].veg3 || menu[meal].veg4 || menu[meal].veg5 || menu[meal].item1 || menu[meal].item2 || menu[meal].item3 || menu[meal].item4 || menu[meal].item5 || menu[meal].dessert1 || menu[meal].dessert2 || menu[meal].dessert3 || menu[meal].dessert4 || menu[meal].dessert5">
     No menu information
   </div>
 </div>
