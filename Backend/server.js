@@ -101,7 +101,6 @@ api.get('/ratings/daysAgo/:days/summary', function(req, res){ // Get ratings fro
       }))
     }
     Promise.all(promises).then(function(){
-      console.log("All promises resolved");
       res.json(summary);
     })
   });
@@ -181,7 +180,31 @@ api.get('/menu/today', function(req, res){ // Get today's menu
       var weekBaseDate = new Date(config.weekBaseDate)
       var now = new Date()
       var difference = Math.floor((now.getTime()-weekBaseDate.getTime())/(1000*60*60*24*7)) // Finds the difference in time between the time right now and the time in the database in milliseconds. Divides this by 1 week then floors it to find the number of weeks.
-      var week = (config.weekOnWeekBaseDate+difference-1)%3+1 // Taking it mod 3 BUT so that it gives 1, 2 or 3 not 0, 1 or 2
+      var week = (config.weekOnWeekBaseDate+difference+29999)%3+1 // Taking it mod 3 BUT so that it gives 1, 2 or 3 not 0, 1 or 2
+      fs.readFile('menu.json', 'utf8', function readMenuCallback(err, data){
+        if (err){
+          console.log(err);
+        } else {
+          var menu = JSON.parse(data);
+          var daysMenu = menu[week.toString()][now.getDay().toString()]
+          daysMenu.week = week.toString()
+          daysMenu.day = now.getDay().toString()
+          res.json(daysMenu)
+        }
+      });
+    }
+  });
+});
+api.get('/menu/onDate/:date', function(req, res){ // Get menu on particular date
+  fs.readFile('config.json', 'utf8', function readConfigCallback(err, conf){
+    if (err){
+      console.log(err);
+    } else {
+      var config = JSON.parse(conf);
+      var weekBaseDate = new Date(config.weekBaseDate)
+      var now = new Date(req.params.date)
+      var difference = Math.floor((now.getTime()-weekBaseDate.getTime())/(1000*60*60*24*7))// Finds the difference in time between the time right now and the time in the database in milliseconds. Divides this by 1 week then floors it to find the number of weeks.
+      var week = (parseInt(config.weekOnWeekBaseDate)+difference+29999)%3+1 // Taking it mod 3 BUT so that it gives 1, 2 or 3 not 0, 1 or 2
       fs.readFile('menu.json', 'utf8', function readMenuCallback(err, data){
         if (err){
           console.log(err);
@@ -204,8 +227,8 @@ api.get('/menu/whatWeek/:date', function(req, res){ // Get today's menu
       var config = JSON.parse(conf);
       var weekBaseDate = new Date(config.weekBaseDate)
       var now = new Date(req.params.date)
-      var difference = Math.floor((now.getTime()-weekBaseDate.getTime())/(1000*60*60*24*7)) // Finds the difference in time between the time right now and the time in the database in milliseconds. Divides this by 1 week then floors it to find the number of weeks.
-      var week = (config.weekOnWeekBaseDate+difference-1)%3+1 // Taking it mod 3 BUT so that it gives 1, 2 or 3 not 0, 1 or 2
+      var difference = Math.floor((now.getTime()-weekBaseDate.getTime())/(1000*60*60*24*7))// Finds the difference in time between the time right now and the time in the database in milliseconds. Divides this by 1 week then floors it to find the number of weeks.
+      var week = (parseInt(config.weekOnWeekBaseDate)+difference+29999)%3+1 // Taking it mod 3 BUT so that it gives 1, 2 or 3 not 0, 1 or 2
       res.json({week:week})
     }
   });
@@ -259,6 +282,9 @@ function getService(time){
       } else {
         var config = JSON.parse(data || "{}");
         var h = time.getUTCHours()
+        if (h >= (config.breakFastStartTime || 6) && h < (config.breakfastEndTime || 10)) {
+          resolve('breakfast')
+        }
         if (h >= (config.lunchStartTime || 10) && h < (config.lunchEndTime || 15)) {
           resolve('lunch')
         }

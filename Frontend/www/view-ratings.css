@@ -11,6 +11,9 @@
   float: left;
   width: auto;
 }
+.view-ratings.day.nothing {
+  text-align: center;
+}
 .view-ratings.day.details {
   float: right;
 }
@@ -28,7 +31,6 @@
   background-color: #ccc;
   border-radius: 10px;
   padding: 20px;
-  padding-right: 30px;
   margin: 0px;
 }
 .rating.graph.bar {
@@ -68,4 +70,30 @@
   width: auto;
   padding-left: 2px;
   padding-right: 2px;
+}
+.rating.menu-box.area {
+  padding: 10px
+}
+.rating.menu-box ul, .rating.menu-box.nothing {
+  list-style-type: none;
+  -webkit-margin-before: 0em;
+  -webkit-margin-after: 0em;
+  -webkit-margin-start: 0px;
+  -webkit-margin-end: 0px;
+  -webkit-padding-start: 0px;
+  padding: 10px;
+  background-color: rgba(0,0,0,0.05);
+  border-radius: 7px;
+}
+.rating.menu-box ul li:not(:first-child):before { /* Magic border only 75% width */
+    content: "";
+    display: block;
+    margin: 0 auto;
+    margin-top: 4px;
+    margin-bottom: 2px;
+    width: 75%;
+    border-top: 2px solid rgba(136,99,8,0.3);
+}
+.rating.menu-box ul:not(.ng-hide) {
+  margin-bottom: 10px;
 }

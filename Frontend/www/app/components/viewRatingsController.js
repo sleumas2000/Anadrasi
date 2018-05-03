@@ -23,6 +23,15 @@
           }
         })
       }
+      $scope.getDayInfo = function(day){
+        Menu.whatWeek({day:day.date}).$promise.then(function(week){
+          day.week = week.week
+        })
+        Menu.getDate({date:day.date}).$promise.then(function(menu){
+          day.menu = menu
+        })
+        day.day = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'][(new Date(day.date)).getDay()]
+      }
       $scope.getRatings("=0")
       $scope.stringifyDate = function(date){
         var d = new Date(date)
@@ -35,7 +44,8 @@
         scope: {
           date: '<',
           meal: '<',
-          summary: '<'
+          summary: '<',
+          menu: '<'
         },
         templateUrl:'/app/components/directives/ratingSummary.html',
         controller: 'graphController'
@@ -50,6 +60,9 @@
         var classes = {rating: true, graph: true, bar: true}
         classes['score-'+score] = true
         return classes
+      }
+      $scope.prettify = function(meal){
+        return {breakfast:'Breakfast',lunch:'Lunch',supper:'Supper',outOfHours:'Overnight'}[meal]
       }
     });
 })();

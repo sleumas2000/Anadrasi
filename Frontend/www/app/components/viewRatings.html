@@ -4,7 +4,10 @@
   <li ng-click="getRatings('<7')" class="nav-item"><a ng-class="{'nav-link':true, 'active': (timeframe == '<7')}" href="#">1 Week</a></li>
   <li ng-click="getRatings('<30')" class="nav-item"><a ng-class="{'nav-link':true, 'active': (timeframe == '<30')}" href="#">30 Days</a></li>
 </ul>
-<div class="view-ratings day box" ng-repeat="day in data | orderBy : 'date'">
-  <h2 class="view-ratings day header">{{stringifyDate(day.date)}}</h2><div class="view-ratings day details">{{day.date}} (Week {{day.date}})</div>
-  <div class="view-ratings day row"><rating-summary class="view-ratings meal box" ng-repeat="service in day.meals" summary="service.totals" meal="service.meal"></rating-summary></div>
-</span>
+<div class="view-ratings day box" ng-repeat="day in data | orderBy : 'date'" ng-init="getDayInfo(day)">
+  <h2 class="view-ratings day header">{{stringifyDate(day.date)}}</h2><div class="view-ratings day details">{{day.day}} Week {{day.week}}<br></div>
+  <div class="view-ratings day row"><rating-summary class="view-ratings meal box" ng-repeat="service in day.meals" summary="service.totals" meal="service.meal" menu="day.menu"></rating-summary></div>
+</div>
+<div class="view-ratings day box" ng-hide="data.length">
+  <h2 class="view-ratings day nothing">No Ratings to show</h2>
+</div>
