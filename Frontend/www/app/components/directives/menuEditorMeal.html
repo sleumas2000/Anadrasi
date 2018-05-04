@@ -1,43 +1,43 @@
 <h2>
-  <input ng-model="editedMenu.lunch.name"></input>
+  <input placeholder="{{meal}}" ng-model="editedMenu[meal].name"></input>
 </h2>
 <div class="menu-editor course">
-  <menu-editor-main item="editedMenu.lunch.main1"></menu-editor-main>
-  <menu-editor-main item="editedMenu.lunch.main2"></menu-editor-main>
-  <menu-editor-main item="editedMenu.lunch.main3"></menu-editor-main>
-  <menu-editor-main item="editedMenu.lunch.main4"></menu-editor-main>
-  <menu-editor-main item="editedMenu.lunch.main5"></menu-editor-main>
-  <div class="menu-editor add-button" ng-click="addItem('main','lunch')">
+  <menu-editor-main item="editedMenu[meal].main1"></menu-editor-main>
+  <menu-editor-main item="editedMenu[meal].main2"></menu-editor-main>
+  <menu-editor-main item="editedMenu[meal].main3"></menu-editor-main>
+  <menu-editor-main item="editedMenu[meal].main4"></menu-editor-main>
+  <menu-editor-main item="editedMenu[meal].main5"></menu-editor-main>
+  <div class="menu-editor add-button" ng-click="addItem('main',meal)">
     <button type="button" class="btn btn-success">Add Main Meal</button>
   </div>
 </div>
 <div class="menu-editor course">
-  <menu-editor-veg item="editedMenu.lunch.veg1"></menu-editor-veg>
-  <menu-editor-veg item="editedMenu.lunch.veg2"></menu-editor-veg>
-  <menu-editor-veg item="editedMenu.lunch.veg3"></menu-editor-veg>
-  <menu-editor-veg item="editedMenu.lunch.veg4"></menu-editor-veg>
-  <menu-editor-veg item="editedMenu.lunch.veg5"></menu-editor-veg>
-  <div class="menu-editor add-button" ng-click="addItem('veg','lunch')">
+  <menu-editor-veg item="editedMenu[meal].veg1"></menu-editor-veg>
+  <menu-editor-veg item="editedMenu[meal].veg2"></menu-editor-veg>
+  <menu-editor-veg item="editedMenu[meal].veg3"></menu-editor-veg>
+  <menu-editor-veg item="editedMenu[meal].veg4"></menu-editor-veg>
+  <menu-editor-veg item="editedMenu[meal].veg5"></menu-editor-veg>
+  <div class="menu-editor add-button" ng-click="addItem('veg',meal)">
     <button type="button" class="btn btn-success">Add Vegetable</button>
   </div>
 </div>
 <div class="menu-editor course">
-  <menu-editor-item item="editedMenu.lunch.item1"></menu-editor-item>
-  <menu-editor-item item="editedMenu.lunch.item2"></menu-editor-item>
-  <menu-editor-item item="editedMenu.lunch.item3"></menu-editor-item>
-  <menu-editor-item item="editedMenu.lunch.item4"></menu-editor-item>
-  <menu-editor-item item="editedMenu.lunch.item5"></menu-editor-item>
-  <div class="menu-editor add-button" ng-click="addItem('item','lunch')">
+  <menu-editor-item item="editedMenu[meal].item1"></menu-editor-item>
+  <menu-editor-item item="editedMenu[meal].item2"></menu-editor-item>
+  <menu-editor-item item="editedMenu[meal].item3"></menu-editor-item>
+  <menu-editor-item item="editedMenu[meal].item4"></menu-editor-item>
+  <menu-editor-item item="editedMenu[meal].item5"></menu-editor-item>
+  <div class="menu-editor add-button" ng-click="addItem('item',meal)">
     <button type="button" class="btn btn-success">Add Other Item</button>
   </div>
 </div>
 <div class="menu-editor course">
-  <menu-editor-dessert item="editedMenu.lunch.dessert1"></menu-editor-dessert>
-  <menu-editor-dessert item="editedMenu.lunch.dessert2"></menu-editor-dessert>
-  <menu-editor-dessert item="editedMenu.lunch.dessert3"></menu-editor-dessert>
-  <menu-editor-dessert item="editedMenu.lunch.dessert4"></menu-editor-dessert>
-  <menu-editor-dessert item="editedMenu.lunch.dessert5"></menu-editor-dessert>
-  <div class="menu-editor add-button" ng-click="addItem('dessert','lunch')">
+  <menu-editor-dessert item="editedMenu[meal].dessert1"></menu-editor-dessert>
+  <menu-editor-dessert item="editedMenu[meal].dessert2"></menu-editor-dessert>
+  <menu-editor-dessert item="editedMenu[meal].dessert3"></menu-editor-dessert>
+  <menu-editor-dessert item="editedMenu[meal].dessert4"></menu-editor-dessert>
+  <menu-editor-dessert item="editedMenu[meal].dessert5"></menu-editor-dessert>
+  <div class="menu-editor add-button" ng-click="addItem('dessert',meal)">
     <button type="button" class="btn btn-success">Add Dessert</button>
   </div>
 </div>

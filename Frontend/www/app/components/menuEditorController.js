@@ -20,6 +20,9 @@
       $scope.addItem = function(item,meal) {
         if (item == 'main') {
           (function(meal) {
+            if (!$scope.editedMenu[meal]) {
+              $scope.editedMenu[meal] = {}
+            }
             if (!$scope.editedMenu[meal].main1) {
               $scope.editedMenu[meal].main1 = {name:'',title:'Main Meal 1',allergens:[],vegetarian:false}
             } else if (!$scope.editedMenu[meal].main2) {
@@ -35,6 +38,9 @@
         }
         if (item == 'veg') {
           (function(meal) {
+            if (!$scope.editedMenu[meal]) {
+              $scope.editedMenu[meal] = {}
+            }
             if (!$scope.editedMenu[meal].veg1) {
               $scope.editedMenu[meal].veg1 = {name:''}
             } else if (!$scope.editedMenu[meal].veg2) {
@@ -50,6 +56,9 @@
         }
         if (item == 'item') {
           (function(meal) {
+            if (!$scope.editedMenu[meal]) {
+              $scope.editedMenu[meal] = {}
+            }
             if (!$scope.editedMenu[meal].item1) {
               $scope.editedMenu[meal].item1 = {name:''}
             } else if (!$scope.editedMenu[meal].item2) {
@@ -65,6 +74,9 @@
         }
         if (item == 'dessert') {
           (function(meal) {
+            if (!$scope.editedMenu[meal]) {
+              $scope.editedMenu[meal] = {}
+            }
             if (!$scope.editedMenu[meal].dessert1) {
               $scope.editedMenu[meal].dessert1 = {name:''}
             } else if (!$scope.editedMenu[meal].dessert2) {
