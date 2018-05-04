@@ -32,6 +32,15 @@
               controller: 'menuController'
             }
           }
+        })
+        .state('menuEditor', {
+          url: '/menu-editor',
+          views: {
+            'content@': {
+              templateUrl: '/app/components/menuEditor.html',
+              controller: 'menuEditorController'
+            }
+          }
         });
       if(window.history && window.history.pushState){
         $locationProvider.html5Mode({

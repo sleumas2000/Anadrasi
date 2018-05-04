@@ -1,0 +1,18 @@
+.menu-editor.vegetarian, .menu-editor.allergen {
+  width: auto;
+  display: inline-flex;
+  color: red;
+}
+.menu-editor.vegetarian.label, .menu-editor.allergen.label {
+  display: block;
+  width: 100%;
+  clear: both;
+}
+.menu-editor.vegetarian.checkbox, .menu-editor.allergen.checkbox {
+  display: block;
+  width: 100%;
+  clear: both;
+}
+.menu-editor.vegetarian {
+  color: green
+}

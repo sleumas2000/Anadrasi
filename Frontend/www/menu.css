@@ -17,7 +17,7 @@
   float: left;
   width: auto;
 }
-.main.allergens, .veg.allergens {
+.allergens {
   margin-left: 10px;
   color: red;
 }

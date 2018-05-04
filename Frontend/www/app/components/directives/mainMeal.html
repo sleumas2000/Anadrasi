@@ -6,9 +6,7 @@
     {{meal[item].name}}
   </h3>
   <h3 class="main allergens">
-    <span ng-repeat="allergen in meal[item].allergens">
-      ({{allergen}})
-    </span>
+    <span ng-repeat="allergen in meal[item].allergens">({{allergen}})</span>
     <span class="vegetarian" ng-show="meal[item].vegetarian">
       (V)
     </span>

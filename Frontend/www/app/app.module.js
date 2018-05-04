@@ -41,13 +41,17 @@
        return $resource(apiRoot+"/feedback", {}, {});
     })
     .factory('Menu', function($resource){
-       return $resource(apiRoot+"/menu", {day: '@day',date: '@date'}, {
+       return $resource(apiRoot+"/menu", {day: '@day', date: '@date', week: '@week'}, {
          getToday: {
            url: apiRoot+"/menu/today",
            method: 'GET',
          },
          getDate: {
            url: apiRoot+"/menu/onDate/:date",
+           method: 'GET',
+         },
+         getDay: {
+           url: apiRoot+"/menu/onDay/:week/:day",
            method: 'GET',
          },
          whatWeek: {

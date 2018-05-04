@@ -219,6 +219,28 @@ api.get('/menu/onDate/:date', function(req, res){ // Get menu on particular date
     }
   });
 });
+api.get('/menu/onDay/:week/:day', function(req, res){ // Get menu on particular date
+  fs.readFile('config.json', 'utf8', function readConfigCallback(err, conf){
+    if (err){
+      console.log(err);
+    } else {
+      fs.readFile('menu.json', 'utf8', function readMenuCallback(err, data){
+        if (err){
+          console.log(err);
+        } else {
+          var menu = JSON.parse(data);
+          if (!menu[req.params.week.toString()] || !menu[req.params.week.toString()][req.params.day.toString()]) {
+            return res.json({})
+          }
+          var daysMenu = menu[req.params.week.toString()][req.params.day.toString()]
+          daysMenu.week = req.params.week.toString()
+          daysMenu.day = req.params.day.toString()
+          res.json(daysMenu)
+        }
+      });
+    }
+  });
+});
 api.get('/menu/whatWeek/:date', function(req, res){ // Get today's menu
   fs.readFile('config.json', 'utf8', function readConfigCallback(err, conf){
     if (err){

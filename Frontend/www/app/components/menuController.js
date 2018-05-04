@@ -10,9 +10,6 @@
         $scope.lunch = menu.lunch
         $scope.supper = menu.supper
         $scope.meal = meal.meal
-        if ($scope.meal == "outOfHours") { // Temporarily show breakfast menu overnight
-          $scope.meal = "breakfast"
-        }
         $scope.goToRate = function() {
           $state.go('rate')
         }
@@ -39,6 +36,26 @@
           item: '@'
         },
         templateUrl:'/app/components/directives/veg.html',
+      };
+    })
+    .directive("menu-item", function() {
+      return {
+        restrict: 'E',
+        scope: {
+          meal: '=',
+          item: '@'
+        },
+        templateUrl:'/app/components/directives/menu-item.html',
+      };
+    })
+    .directive("dessert", function() {
+      return {
+        restrict: 'E',
+        scope: {
+          meal: '=',
+          item: '@'
+        },
+        templateUrl:'/app/components/directives/dessert.html',
       };
     });
 })();

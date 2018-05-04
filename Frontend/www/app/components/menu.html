@@ -1,20 +1,26 @@
 <div class="menu meal">{{menu[meal].name}}</div>
 <div class="menu day">Week {{week}} {{day}}</div>
 <h1 class="menu header">Menu</h1>
-<div class="menu" ng-show="meal == 'lunch'">
-  <main-meal meal="lunch" item="main1"></main-meal>
-  <main-meal meal="lunch" item="main2"></main-meal>
-  <main-meal meal="lunch" item="main3"></main-meal>
-  <veg meal="lunch" item="veg1"></veg>
-  <veg meal="lunch" item="veg2"></veg>
-  <veg meal="lunch" item="veg3"></veg>
-</div>
-<div class="menu" ng-show="meal == 'supper'">
-  <main-meal meal="supper" item="main1"></main-meal>
-  <main-meal meal="supper" item="main2"></main-meal>
-  <main-meal meal="supper" item="main3"></main-meal>
-  <veg meal="supper" item="veg1"></veg>
-  <veg meal="supper" item="veg2"></veg>
-  <veg meal="supper" item="veg3"></veg>
+<div class="menu">
+  <main-meal meal="menu[meal]" item="main1"></main-meal>
+  <main-meal meal="menu[meal]" item="main2"></main-meal>
+  <main-meal meal="menu[meal]" item="main3"></main-meal>
+  <main-meal meal="menu[meal]" item="main4"></main-meal>
+  <main-meal meal="menu[meal]" item="main5"></main-meal>
+  <veg meal="menu[meal]" item="veg1"></veg>
+  <veg meal="menu[meal]" item="veg2"></veg>
+  <veg meal="menu[meal]" item="veg3"></veg>
+  <veg meal="menu[meal]" item="veg4"></veg>
+  <veg meal="menu[meal]" item="veg5"></veg>
+  <menu-item meal="menu[meal]" item="item1"></item>
+  <menu-item meal="menu[meal]" item="item2"></item>
+  <menu-item meal="menu[meal]" item="item3"></item>
+  <menu-item meal="menu[meal]" item="item4"></item>
+  <menu-item meal="menu[meal]" item="item5"></item>
+  <dessert meal="menu[meal]" item="dessert1"></dessert>
+  <dessert meal="menu[meal]" item="dessert2"></dessert>
+  <dessert meal="menu[meal]" item="dessert3"></dessert>
+  <dessert meal="menu[meal]" item="dessert4"></dessert>
+  <dessert meal="menu[meal]" item="dessert5"></dessert>
 </div>
 <div class="tapSensor" ng-click="goToRate()"></div>

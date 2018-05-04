@@ -233,6 +233,12 @@
           "allergens":[],
           "vegetarian": true
         },
+        "main4": {
+          "name":"Chef's Special",
+          "title":"Chef's Special",
+          "allergens":[],
+          "vegetarian": true
+        },
         "veg1": {
           "name":"Mexican Wedges"
         },

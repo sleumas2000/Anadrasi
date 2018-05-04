@@ -1,0 +1,21 @@
+<h3 ng-show="item.title">
+  <input ng-model="item.title"></input>
+</h3>
+<input ng-model="item.name" ng-show="item"></input>
+<div class="menu-editor item allergen-container" ng-show="item">
+  <div class="menu-editor item allergen" ng-repeat="allergen in allAllergensList">
+    <div class="menu-editor item allergen label">({{allergen}})</div>
+    <div class="menu-editor item allergen checkbox">
+      <input type="checkbox" ng-model="allergenIsSelected[allergen]" ng-change="updateAllergens()"></input>
+    </div>
+  </div>
+  <div class="menu-editor item vegetarian">
+    <div class="menu-editor item vegetarian label">(V)</div>
+    <div class="menu-editor item vegetarian checkbox">
+      <input type="checkbox" ng-model="item.vegetarian"></input>
+    </div>
+  </div>
+</div>
+<div class="menu-editor item delete-button" ng-show="item" ng-click="removeSelf()">
+  <button type="button" class="btn btn-danger">Delete</button>
+</div>
